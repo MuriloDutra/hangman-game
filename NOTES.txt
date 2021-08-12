@@ -1,0 +1,2 @@
+===== STRING | ARRAY =====
+    In the end of a string in C, it must have a '\0', so it is possible to know that it is the end. 
