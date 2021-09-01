@@ -1,22 +1,38 @@
 #include <stdio.h>
 #include <string.h>
  
+void write_header(void)
+{
+    printf("*****************\n");
+    printf("* HANGAMAN GAME *\n");
+    printf("*****************\n\n");
+}
+
+void requests_user_attempt(char storaged_attempts[26], int attempts_counter)
+{
+    char user_attempt;
+    scanf(" %c", &user_attempt);
+
+    storaged_attempts[attempts_counter] = user_attempt;
+}
+
 int main(void)
 {
     char secret_word[20];
-    char storage_attempts_values[26];
-    int attempts_quantity = 0;
+    char storaged_attempts[26];
+    int attempts_counter = 0;
     int player_won = 0;
     int hanged = 0;
 
-    sprintf(secret_word, "MELANCIA ");
-
+    sprintf(secret_word, "MELANCIA ");//It fills the secret_word variable with the text given
+    write_header();
+    
     do
     {
         for(int x = 0; x < strlen(secret_word); x++){
             int found_letter = 0;
-            for(int y = 0; y < attempts_quantity; y++){
-                if(storage_attempts_values[y] == secret_word[x]){
+            for(int y = 0; y < attempts_counter; y++){
+                if(storaged_attempts[y] == secret_word[x]){
                     found_letter = 1;
                     break; 
                 }
@@ -30,10 +46,7 @@ int main(void)
         }
         printf("\n"); 
 
-        char user_attempt;
-        scanf(" %c", &user_attempt);
-
-        storage_attempts_values[attempts_quantity] = user_attempt;
-        attempts_quantity++;
+        requests_user_attempt(storaged_attempts, attempts_counter);
+        attempts_counter++;
     }while(!player_won && !hanged);
 }
