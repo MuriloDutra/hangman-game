@@ -8,12 +8,13 @@ void write_header(void)
     printf("*****************\n\n");
 }
 
-void requests_user_attempt(char storaged_attempts[26], int attempts_counter)
+void requests_user_attempt(char storaged_attempts[26], int* attempts_counter)
 {
     char user_attempt;
     scanf(" %c", &user_attempt);
 
-    storaged_attempts[attempts_counter] = user_attempt;
+    storaged_attempts[(*attempts_counter)] = user_attempt;
+    (*attempts_counter)++;
 }
 
 int main(void)
@@ -46,7 +47,6 @@ int main(void)
         }
         printf("\n"); 
 
-        requests_user_attempt(storaged_attempts, attempts_counter);
-        attempts_counter++;
+        requests_user_attempt(storaged_attempts, &attempts_counter);
     }while(!player_won && !hanged);
 }
