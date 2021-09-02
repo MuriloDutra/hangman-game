@@ -7,7 +7,7 @@ void exponent(int a, int b)
     {
         result *= a;
     }
-    printf("%dˆ%d: %d\n", a, b, result);
+    printf("%dˆ%d = %d\n", a, b, result);
 }
 
 int main()
