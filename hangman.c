@@ -51,10 +51,30 @@ void pick_word()
     sprintf(secret_word, "MELANCIA ");//It fills the secret_word variable with the text given
 }
 
+int hanged()
+{
+    int errors = 0;
+    for(int x = 0; x < attempts_counter; x++)
+    {
+        int exist = 0;
+        for(int y = 0; y < strlen(secret_word); y++)
+        {
+            if(storaged_attempts[x] == secret_word[y])
+            {
+                exist = 1;
+                break;
+            }
+        }
+        if(!exist)
+            errors++;
+    }
+    int hanged = (errors >= 5);
+    return hanged;
+}
+
 int main(void)
 {
     int player_won = 0;
-    int hanged = 0;
 
     pick_word();
     write_header();
@@ -63,5 +83,5 @@ int main(void)
     {
         print_word();
         requests_user_attempt();
-    }while(!player_won && !hanged);
+    }while(!player_won && !hanged());
 }
