@@ -55,7 +55,7 @@ void pick_word(){
         exit(1);
     }
 
-    fscanf(f, "%d", &quantity_of_words);
+    fscanf(f, "%d", &quantity_of_words);//It reads the content of a file
    
     srand(time(0));
     int random_number = rand() % quantity_of_words; 
@@ -94,6 +94,37 @@ int player_won(){
     return 1;
 }
 
+void add_new_word(){
+    char user_choice;
+    printf("Do you want to add a new word to the game? (Y/N)\n");
+    scanf(" %c", &user_choice);
+    
+    if(user_choice == 'Y'){
+        char new_word[20];
+        printf("Qual a nova palavra?\n");
+        scanf("%s", new_word);
+
+        FILE* f;
+        f = fopen("words.txt", "r+");//r+ -> read and write
+        if(f == 0){
+            printf("Sorry, it wasn't possible to read from the file\n");
+            exit(1);
+        }
+
+        int quantity_of_words;
+        fscanf(f, "%d", &quantity_of_words);//It reads the content of a file
+        quantity_of_words++;
+
+        fseek(f, 0, SEEK_SET);
+        fprintf(f, "%d", quantity_of_words);//Updates the number of words in the file
+
+        fseek(f, 0, SEEK_END);
+        fprintf(f, "\n%s", new_word);//Adds the new word to the end of file
+
+        fclose(f);
+    }
+}
+
 int main(void){
     pick_word();
     write_header();
@@ -102,4 +133,5 @@ int main(void){
         print_word();
         requests_user_attempt();
     }while(!player_won() && !hanged());
+    add_new_word();
 }
