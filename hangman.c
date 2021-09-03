@@ -34,6 +34,21 @@ int find_letter(char letter){
 }
 
 void print_word(){
+    int errors = get_errors_quantity();
+    int biggerOrEqualToOne = (errors >= 1);
+    int biggerOrEqualToTwo = (errors >= 2);
+    int biggerOrEqualToThree = (errors >= 3);
+    int biggerOrEqualToFour = (errors >= 4);
+    int biggerOrEqualToFive = (errors >= 5);
+
+    printf("   +---+            \n");
+    printf("    |  |            \n");
+    printf("    %c  |           \n", biggerOrEqualToOne ? 'o' : ' ');
+    printf("   %c%c%c |         \n", biggerOrEqualToThree ? '/' : ' ', biggerOrEqualToTwo ? '|' : ' ', biggerOrEqualToThree ? '\\' : ' ');
+    printf("   %c %c |           \n", biggerOrEqualToFour ? '/' : ' ', biggerOrEqualToFive ? '\\' : ' ');
+    printf("       |            \n");
+    printf("=========           \n\n");
+
     for(int x = 0; x < strlen(secret_word); x++){
         int found_letter = find_letter(secret_word[x]);
         if(found_letter){
@@ -67,8 +82,7 @@ void pick_word(){
     fclose(f);
 }
 
-int hanged()
-{
+int get_errors_quantity(){
     int errors = 0;
     for(int x = 0; x < attempts_counter; x++){
         int exist = 0;
@@ -82,7 +96,12 @@ int hanged()
         if(!exist)
             errors++;
     }
-    int hanged = (errors >= 5);
+    return errors;
+}
+
+int hanged()
+{
+    int hanged = (get_errors_quantity() >= 5);
     return hanged;
 }
 
@@ -169,6 +188,7 @@ int main(void){
     if(player_won()){
         print_trophy();
     }else{
+        print_word();
         print_skull();
     }
     add_new_word();

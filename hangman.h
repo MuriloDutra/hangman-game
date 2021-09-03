@@ -8,3 +8,4 @@ int hanged();
 int player_won();
 void add_new_word();
 void print_trophy();
+int get_errors_quantity();
