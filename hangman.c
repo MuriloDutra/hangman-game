@@ -1,5 +1,9 @@
 #include <stdio.h>
 #include <string.h>
+
+char secret_word[20];
+char storaged_attempts[26];
+int attempts_counter = 0;
  
 void write_header(void)
 {
@@ -8,16 +12,16 @@ void write_header(void)
     printf("*****************\n\n");
 }
 
-void requests_user_attempt(char storaged_attempts[26], int* attempts_counter)
+void requests_user_attempt()
 {
     char user_attempt;
     scanf(" %c", &user_attempt);
 
-    storaged_attempts[(*attempts_counter)] = user_attempt;
-    (*attempts_counter)++;
+    storaged_attempts[attempts_counter] = user_attempt;
+    attempts_counter++;
 }
 
-int find_letter(char letter, char storaged_attempts[26], int attempts_counter)
+int find_letter(char letter)
 {
     int found_letter = 0;
     for(int y = 0; y < attempts_counter; y++){
@@ -29,10 +33,10 @@ int find_letter(char letter, char storaged_attempts[26], int attempts_counter)
     return found_letter;
 }
 
-void print_word(char secret_word[20], char storaged_attempts[26], int attempts_counter)
+void print_word()
 {
     for(int x = 0; x < strlen(secret_word); x++){
-        int found_letter = find_letter(secret_word[x],  storaged_attempts, attempts_counter);
+        int found_letter = find_letter(secret_word[x]);
         if(found_letter){
             printf("%c ", secret_word[x]);
         }else{
@@ -42,25 +46,22 @@ void print_word(char secret_word[20], char storaged_attempts[26], int attempts_c
     printf("\n"); 
 }
 
-void pick_word(char secret_word[20])
+void pick_word()
 {
     sprintf(secret_word, "MELANCIA ");//It fills the secret_word variable with the text given
 }
 
 int main(void)
 {
-    char secret_word[20];
-    char storaged_attempts[26];
-    int attempts_counter = 0;
     int player_won = 0;
     int hanged = 0;
 
-    pick_word(secret_word);
+    pick_word();
     write_header();
     
     do
     {
-        print_word(secret_word, storaged_attempts, attempts_counter);
-        requests_user_attempt(storaged_attempts, &attempts_counter);
+        print_word();
+        requests_user_attempt();
     }while(!player_won && !hanged);
 }
