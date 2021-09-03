@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include "hangman.h"
 
 char secret_word[20];
 char storaged_attempts[26];
