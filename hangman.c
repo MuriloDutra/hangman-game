@@ -4,7 +4,7 @@
 #include <time.h>
 #include <stdlib.h>
 
-char secret_word[20];
+char secret_word[WORD_SIZE];
 char storaged_attempts[26];
 int attempts_counter = 0;
  
@@ -100,7 +100,7 @@ void add_new_word(){
     scanf(" %c", &user_choice);
     
     if(user_choice == 'Y'){
-        char new_word[20];
+        char new_word[WORD_SIZE];
         printf("Qual a nova palavra?\n");
         scanf("%s", new_word);
 
@@ -125,13 +125,51 @@ void add_new_word(){
     }
 }
 
+void print_trophy(){
+    printf("      You WON. Congrats!!!          \n");
+    printf("         ___________                \n");
+    printf("        '._==_==_=_.'               \n");
+    printf("        .-\\:      /-.              \n");
+    printf("       | (|:.     |) |              \n");
+    printf("        '-|:.     |-'               \n");
+    printf("          \\::.    /                \n");
+    printf("           '::. .'                  \n");
+    printf("             ) (                    \n");
+    printf("           _.' '._                  \n");
+    printf("          `\"\"\"\"\"\"\"`          \n");
+}
+
+void print_skull(){
+    printf("      You LOST. The secret word was: %s\n\n            ", secret_word);
+    printf("       ______                                           \n");
+    printf("                .-\"      \"-.                          \n");
+    printf("               /            \\                          \n");
+    printf("   _          |              |          _               \n");
+    printf("  ( \\         |,  .-.  .-.  ,|         / )             \n");
+    printf("   > \"=._     | )(__/  \\__)( |     _.=\" <            \n");
+    printf("  (_/\"=._\"=._ |/     /\\     \\| _.=\"_.=\"\\_)       \n");
+    printf("         \"=._ (_     ^^     _)\"_.=\"                  \n");
+    printf("             \"=\\__|IIIIII|__/=\"                      \n");
+    printf("            _.=\"| \\IIIIII/ |\"=._                     \n");    
+    printf("  _     _.=\"_.=\"\\          /\"=._\"=._     _         \n");
+    printf(" ( \\_.=\"_.=\"     `--------`     \"=._\"=._/ )        \n");
+    printf("  > _.=\"                            \"=._ <            \n");
+    printf(" (_/                                    \\_)            \n");
+}
+
 int main(void){
     pick_word();
     write_header();
-    
+
     do{
         print_word();
         requests_user_attempt();
     }while(!player_won() && !hanged());
+
+    if(player_won()){
+        print_trophy();
+    }else{
+        print_skull();
+    }
     add_new_word();
 }
