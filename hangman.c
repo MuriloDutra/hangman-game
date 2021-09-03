@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <string.h>
 #include "hangman.h"
+#include <time.h>
+#include <stdlib.h>
 
 char secret_word[20];
 char storaged_attempts[26];
@@ -44,7 +46,25 @@ void print_word(){
 }
 
 void pick_word(){
-    sprintf(secret_word, "MELANCIA");//It fills the secret_word variable with the text given
+    FILE* f;
+    int quantity_of_words;
+
+    f = fopen("words.txt", "r");//r -> read
+    if(f == 0){
+        printf("Sorry, it wasn't possible to read from the file\n");
+        exit(1);
+    }
+
+    fscanf(f, "%d", &quantity_of_words);
+   
+    srand(time(0));
+    int random_number = rand() % quantity_of_words; 
+
+    for(int i = 0; i <= random_number; i++){
+        fscanf(f, "%s", secret_word);
+    }
+
+    fclose(f);
 }
 
 int hanged()

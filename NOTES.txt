@@ -3,3 +3,6 @@
 
 ===== BIT | BYTE =====
     8 BITs = 1 BYTE
+
+===== FUNCTION =====
+    sprintf(secret_word, "MELANCIA");//It fills the secret_word variable with the text given
