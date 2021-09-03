@@ -5,4 +5,3 @@ void print_word();
 void pick_word();
 int hanged();
 int player_won();
-
